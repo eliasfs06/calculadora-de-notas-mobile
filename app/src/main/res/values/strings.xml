@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">calculadora-de-notas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="main_title">Calculadora IMD</string>
+    <string name="btn_calculadora_title">Calculadora</string>
+    <string name="btn_notas_title">Notas</string>
+
+    <string name="frag_notas_title">Calcule sua média</string>
+    <string name="nota_1">Nota 1</string>
+    <string name="nota_2">Nota 2</string>
+    <string name="nota_3">Nota 3</string>
+    <string name="label_situacao">Situação:</string>
+    <string name="button_calcular_nota">Calcular</string>
+
+
+</resources>

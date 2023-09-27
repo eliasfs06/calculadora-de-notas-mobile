@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NotasFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/situacao"
+                android:layout_width="140dp"
+                android:layout_height="54dp"
+                android:gravity="center"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.797" />
+
+            <EditText
+                android:id="@+id/input_nota_3"
+                android:layout_width="249dp"
+                android:layout_height="55dp"
+                android:ems="10"
+                android:hint="Insira nota 3"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.456"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.61" />
+
+            <TextView
+                android:id="@+id/label_nota_3"
+                android:layout_width="87dp"
+                android:layout_height="24dp"
+                android:text="@string/nota_3"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.228"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.523" />
+
+            <TextView
+                android:id="@+id/label_situacao"
+                android:layout_width="87dp"
+                android:layout_height="24dp"
+                android:text="@string/label_situacao"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.228"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.694" />
+
+            <TextView
+                android:id="@+id/label_nota_2"
+                android:layout_width="87dp"
+                android:layout_height="24dp"
+                android:text="@string/nota_2"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.228"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.37" />
+
+            <EditText
+                android:id="@+id/input_nota_2"
+                android:layout_width="249dp"
+                android:layout_height="55dp"
+                android:ems="10"
+                android:hint="Insira nota 2"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.456"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.446" />
+
+            <TextView
+                android:id="@+id/notas_title"
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:gravity="center"
+                android:text="@string/frag_notas_title"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/button_calcular_nota"
+                android:layout_width="263dp"
+                android:layout_height="57dp"
+                android:background="@color/background_main"
+                android:text="@string/button_calcular_nota"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/notas_title"
+                app:layout_constraintVertical_bias="0.925" />
+
+            <EditText
+                android:id="@+id/input_nota_1"
+                android:layout_width="249dp"
+                android:layout_height="55dp"
+                android:ems="10"
+                android:hint="Insira nota 1"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.456"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.289" />
+
+            <TextView
+                android:id="@+id/label_nota_1"
+                android:layout_width="87dp"
+                android:layout_height="24dp"
+                android:text="@string/nota_1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.228"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.219" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</FrameLayout>

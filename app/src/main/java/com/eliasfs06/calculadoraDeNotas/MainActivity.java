@@ -5,6 +5,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,15 +15,16 @@ public class MainActivity extends AppCompatActivity {
     private NotasFragment notasFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savinInstanceState) {
+        super.onCreate(savinInstanceState);
         setContentView(R.layout.activity_main);
         calculadoraFragment = new CalculadoraFragment();
         notasFragment = new NotasFragment();
 
-        getSupportFragmentManager().beginTransaction().
-                replace(R.id.frameLayout, notasFragment).
-                commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, notasFragment)
+                .commit();
+
    }
 
     public void inciarFragmentoCalculadora(View view){
@@ -34,4 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.frameLayout, notasFragment)
                 .commit();
     }
+
+
 }

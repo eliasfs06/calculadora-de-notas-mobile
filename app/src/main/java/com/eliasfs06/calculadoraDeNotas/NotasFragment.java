@@ -1,5 +1,6 @@
 package com.eliasfs06.calculadoraDeNotas;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,50 +20,57 @@ import android.view.ViewGroup;
  */
 public class NotasFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private EditText inputN1;
+    private EditText inputN2;
+    private EditText inputN3;
+    private TextView resultado;
     public NotasFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NotasFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NotasFragment newInstance(String param1, String param2) {
-        NotasFragment fragment = new NotasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notas, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_notas, container, false);
+        Button buttonCalcular = view.findViewById(R.id.button_calcular_nota);
+        inputN1 = view.findViewById(R.id.input_n1);
+        inputN2 = view.findViewById(R.id.input_n2);
+        inputN3 = view.findViewById(R.id.input_n3);
+        resultado = view.findViewById(R.id.situacao);
+
+        buttonCalcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calcularResultadoMedia();
+            }
+        });
+
+        return view;
+    }
+
+    public void calcularResultadoMedia(){
+
+        float n1 = Float.parseFloat(inputN1.getText().toString());
+        float n2 = Float.parseFloat(inputN2.getText().toString());
+        float n3 = Float.parseFloat(inputN3.getText().toString());
+
+        float media = (n1 + n2 + n3) / 3;
+        if (media >= 7) {
+            resultado.setText("Aprovado: " + media);
+        } else if (media < 7 && media >= 5) {
+            resultado.setText("Aprovado por nota: " + media);
+        } else if (media < 5 && media >= 3) {
+            resultado.setText("Recuperação: " + media);
+        } else {
+            resultado.setText("Reprovado: " + media);
+        }
+
     }
 }

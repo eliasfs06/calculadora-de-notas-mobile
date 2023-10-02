@@ -6,9 +6,9 @@
     <string name="btn_notas_title">Notas</string>
 
     <string name="frag_notas_title">Calcule sua média</string>
-    <string name="nota_1">Nota 1</string>
-    <string name="nota_2">Nota 2</string>
-    <string name="nota_3">Nota 3</string>
+    <string name="nota_1">Insira nota 1</string>
+    <string name="nota_2">Insira nota 2</string>
+    <string name="nota_3">Insira nota 3</string>
     <string name="label_situacao">Situação:</string>
     <string name="button_calcular_nota">Calcular</string>
 

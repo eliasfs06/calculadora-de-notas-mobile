@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,10 @@ public class CalculadoraFragment extends Fragment {
     private List<Character> buffer = new ArrayList<>();
     private Map<Button, Character> numerosButtons = new ArrayMap();
     private Map<Button, Character> operacoesButtons =  new ArrayMap();
+    private TextView textBuffer;
+    private TextView resultado;
+
+    List<String> bufferFinal = new ArrayList<>();
 
 
     public CalculadoraFragment() {
@@ -43,6 +48,8 @@ public class CalculadoraFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_calculadora, container, false);
+        textBuffer =  view.findViewById(R.id.operacoes_calculadora);
+        resultado =  view.findViewById(R.id.resultado_calculadora);
         setNumerosButtons(view, numerosButtons);
         setOperacoesButtons(view, operacoesButtons);
 
@@ -66,7 +73,15 @@ public class CalculadoraFragment extends Fragment {
             entry.getKey().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(buffer.size() != 0) {
+                        Character lastEntry = buffer.get(buffer.size() - 1);
+                        if(lastEntry == '/' && value == '0') {
+                            showToast("Não é permitido divisão por 0.");
+                            return;
+                        }
+                    }
                     buffer.add(value);
+                    setTextBuffer();
                 }
             });
         }
@@ -85,34 +100,80 @@ public class CalculadoraFragment extends Fragment {
             entry.getKey().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Character lastEntry = buffer.get(buffer.size() - 1);
-                    if(lastEntry == '+'|| lastEntry == '-' || lastEntry == 'd'
-                            || lastEntry == '*' || lastEntry == '/' || lastEntry == '=') {
-                        showToast("Não é possível realizar duas operações em seguida");
-                    } else if(value == 'd'){
+                    if(buffer.size() != 0 && value != 'd') {
+                        Character lastEntry = buffer.get(buffer.size() - 1);
+                        if (lastEntry == '+' || lastEntry == '-' || lastEntry == '*' || lastEntry == '/'
+                                || lastEntry == '=') {
+                            showToast("Não é possível realizar duas operações em seguida.");
+                            return;
+                        }
+                    }
+
+                    if(value == 'd'){
                         buffer.remove(buffer.size() - 1);
                     } else if(value == '='){
-                        finalizaCalculo();
+                        buffer.add(value);
+                        preparaCalculo();
                     } else {
                         buffer.add(value);
                     }
+                    setTextBuffer();
                 }
             });
         }
     }
 
-    public void finalizaCalculo(){
-        validaCalculo();
-    }
+    public void preparaCalculo(){
+        String number = "";
+        for(Character valor : buffer) {
+            if (valor != '+' && valor != '-' && valor != 'd'
+                    && valor != '*' && valor != '/' && valor != '=') {
+                number += valor;
+            } else {
+                //Fim de um número
+                bufferFinal.add(number);
+                number = "";
 
-    public void validaCalculo(){
-        //Verifica divisão por 0
-        for(int i = 0; i < buffer.size(); i++){
-            if(buffer.get(i) == '/' && buffer.get(i+1) == '0'){
-                showToast("Não é permitido divisão por zero");
-                buffer.clear();
+                bufferFinal.add(valor.toString());
             }
         }
+        bufferFinal.remove(bufferFinal.size() -1); //remove =
+        finalizaCalculo();
+    }
+
+   public void finalizaCalculo() {
+
+        int index = 0;
+        Double numero = Double.parseDouble(bufferFinal.get(index));
+
+        while (index < bufferFinal.size()) {
+            String operador = bufferFinal.get(index);
+            index++;
+            double proximoNumero = Double.parseDouble(bufferFinal.get(index));
+            index++;
+
+            if (operador.equals("+")) {
+                numero += proximoNumero;
+            } else if (operador.equals("-")) {
+                numero -= proximoNumero;
+            } else if (operador.equals("*")) {
+                numero *= proximoNumero;
+            } else if (operador.equals("/")) {
+                numero /= proximoNumero;
+            }
+        }
+
+        bufferFinal.clear();
+        buffer.clear();
+        resultado.setText(numero.toString());
+    }
+
+    public void setTextBuffer(){
+        String operacoes = "";
+        for(Character value : buffer){
+            operacoes += value;
+        }
+        textBuffer.setText(operacoes);
     }
 
     public void showToast(String mensagem){

@@ -67,7 +67,6 @@ public class CalculadoraFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     buffer.add(value);
-                    validaOperacao();
                 }
             });
         }
@@ -90,29 +89,28 @@ public class CalculadoraFragment extends Fragment {
                     if(lastEntry == '+'|| lastEntry == '-' || lastEntry == 'd'
                             || lastEntry == '*' || lastEntry == '/' || lastEntry == '=') {
                         showToast("Não é possível realizar duas operações em seguida");
+                    } else if(value == 'd'){
+                        buffer.remove(buffer.size() - 1);
+                    } else if(value == '='){
+                        finalizaCalculo();
                     } else {
                         buffer.add(value);
-                        validaOperacao();
                     }
                 }
             });
         }
     }
 
-    public void validaOperacao(){
-        List<String> bufferNumeros = new ArrayList<>();
-        List<Character> bufferOperacoes = new ArrayList<>();
-        String number = "";
+    public void finalizaCalculo(){
+        validaCalculo();
+    }
 
-        for(Character valor : buffer){
-            if(valor != '+'|| valor != '-' || valor != 'd'
-                    || valor != '*' || valor != '/' || valor != '='){
-                number += valor;
-            } else {
-                bufferOperacoes.add(valor);
-                //Fim de um número
-                bufferNumeros.add(number);
-                number = "";
+    public void validaCalculo(){
+        //Verifica divisão por 0
+        for(int i = 0; i < buffer.size(); i++){
+            if(buffer.get(i) == '/' && buffer.get(i+1) == '0'){
+                showToast("Não é permitido divisão por zero");
+                buffer.clear();
             }
         }
     }

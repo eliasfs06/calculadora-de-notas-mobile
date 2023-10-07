@@ -4,44 +4,31 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalculadoraFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+
 public class CalculadoraFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private List<Character> buffer = new ArrayList<>();
+    private Map<Button, Character> numerosButtons = new ArrayMap();
+    private Map<Button, Character> operacoesButtons =  new ArrayMap();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public CalculadoraFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalculadoraFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CalculadoraFragment newInstance(String param1, String param2) {
         CalculadoraFragment fragment = new CalculadoraFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,16 +36,89 @@ public class CalculadoraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calculadora, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_calculadora, container, false);
+        setNumerosButtons(view, numerosButtons);
+        setOperacoesButtons(view, operacoesButtons);
+
+        return view;
+    }
+
+    public void setNumerosButtons(View view, Map<Button, Character> numerosButtons){
+        numerosButtons.put(view.findViewById(R.id.button1), '1');
+        numerosButtons.put(view.findViewById(R.id.button2), '2');
+        numerosButtons.put(view.findViewById(R.id.button3), '3');
+        numerosButtons.put(view.findViewById(R.id.button4), '4');
+        numerosButtons.put(view.findViewById(R.id.button5), '5');
+        numerosButtons.put(view.findViewById(R.id.button6), '6');
+        numerosButtons.put(view.findViewById(R.id.button7), '7');
+        numerosButtons.put(view.findViewById(R.id.button8), '8');
+        numerosButtons.put(view.findViewById(R.id.button9), '9');
+        numerosButtons.put(view.findViewById(R.id.button0), '0');
+
+        for (final Map.Entry<Button, Character> entry : numerosButtons.entrySet()) {
+            final Character value = entry.getValue();
+            entry.getKey().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buffer.add(value);
+                    validaOperacao();
+                }
+            });
+        }
+    }
+
+    public void setOperacoesButtons(View view, Map<Button, Character> operacoesButtons){
+        operacoesButtons.put(view.findViewById(R.id.buttonMulti), '*');
+        operacoesButtons.put(view.findViewById(R.id.buttonDiv), '/');
+        operacoesButtons.put(view.findViewById(R.id.buttonSoma), '+');
+        operacoesButtons.put(view.findViewById(R.id.buttonSubstracao), '-');
+        operacoesButtons.put(view.findViewById(R.id.buttonDel), 'd');
+        operacoesButtons.put(view.findViewById(R.id.buttonIgual), '=');
+
+        for (final Map.Entry<Button, Character> entry : operacoesButtons.entrySet()) {
+            final Character value = entry.getValue();
+            entry.getKey().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Character lastEntry = buffer.get(buffer.size() - 1);
+                    if(lastEntry == '+'|| lastEntry == '-' || lastEntry == 'd'
+                            || lastEntry == '*' || lastEntry == '/' || lastEntry == '=') {
+                        showToast("Não é possível realizar duas operações em seguida");
+                    } else {
+                        buffer.add(value);
+                        validaOperacao();
+                    }
+                }
+            });
+        }
+    }
+
+    public void validaOperacao(){
+        List<String> bufferNumeros = new ArrayList<>();
+        List<Character> bufferOperacoes = new ArrayList<>();
+        String number = "";
+
+        for(Character valor : buffer){
+            if(valor != '+'|| valor != '-' || valor != 'd'
+                    || valor != '*' || valor != '/' || valor != '='){
+                number += valor;
+            } else {
+                bufferOperacoes.add(valor);
+                //Fim de um número
+                bufferNumeros.add(number);
+                number = "";
+            }
+        }
+    }
+
+    public void showToast(String mensagem){
+        Toast toast = Toast.makeText(getContext(), mensagem, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

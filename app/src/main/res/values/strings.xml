@@ -12,5 +12,8 @@
     <string name="label_situacao">Situação:</string>
     <string name="button_calcular_nota">Calcular</string>
 
+    <string name="resultado_calculadora">Resultado:</string>
+
+    <string name="label_desenvolvedor">Desenvolvido por Elias Farias da Silva</string>
 
 </resources>

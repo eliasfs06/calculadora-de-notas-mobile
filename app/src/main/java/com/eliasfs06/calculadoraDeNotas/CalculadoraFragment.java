@@ -138,13 +138,13 @@ public class CalculadoraFragment extends Fragment {
             }
         }
         bufferFinal.remove(bufferFinal.size() -1); //remove =
-        finalizaCalculo();
+        finalizaCalculo(0);
     }
 
-   public void finalizaCalculo() {
+   public void finalizaCalculo(int index) {
 
-        int index = 0;
         Double numero = Double.parseDouble(bufferFinal.get(index));
+        index++;
 
         while (index < bufferFinal.size()) {
             String operador = bufferFinal.get(index);

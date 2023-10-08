@@ -110,7 +110,9 @@ public class CalculadoraFragment extends Fragment {
                     }
 
                     if(value == 'd'){
-                        buffer.remove(buffer.size() - 1);
+                        if(buffer.size() != 0){
+                            buffer.remove(buffer.size() - 1);
+                        }
                     } else if(value == '='){
                         buffer.add(value);
                         preparaCalculo();
